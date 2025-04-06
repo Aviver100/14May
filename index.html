@@ -51,15 +51,18 @@
     .radio-group {
       display: flex;
       flex-direction: column;
-      gap: 10px;
       margin-top: 10px;
+      gap: 10px;
     }
     .radio-group label {
-      display: flex;
-      flex-direction: row-reverse;
+      display: inline-flex;
       align-items: center;
-      gap: 10px;
       font-weight: normal;
+      direction: rtl;
+      font-size: 1rem;
+    }
+    .radio-group input[type="radio"] {
+      margin-left: 8px;
     }
     .hidden {
       display: none !important;
@@ -128,7 +131,7 @@
         <div class="radio-group">
           <label><input type="radio" name="נגישות" value="מתהלך" required onclick="toggleEscort(false)"> מתהלך</label>
           <label><input type="radio" name="נגישות" value="קביים" onclick="toggleEscort(true)"> קביים</label>
-          <label><input type="radio" name="נגישות" value="כיסא גלגלים" onclick="toggleEscort(true)"> כסא גלגלים</label>
+          <label><input type="radio" name="נגישות" value="כיסא גלגלים" onclick="toggleEscort(true)"> כיסא גלגלים</label>
         </div>
 
         <div id="escort-section" class="hidden">
