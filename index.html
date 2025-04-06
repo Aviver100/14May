@@ -11,51 +11,51 @@
     * {
       box-sizing: border-box;
     }
-    body {
+    html, body {
       margin: 0;
+      padding: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: url('https://raw.githubusercontent.com/Aviver100/14May/main/background.jpg') no-repeat center center fixed;
       background-size: cover;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    }
+    .wrapper {
       padding: 20px;
+      max-width: 500px;
+      margin: auto;
     }
     .form-container {
       background: rgba(255, 255, 255, 0.98);
-      width: 100%;
-      max-width: 500px;
       border-radius: 16px;
-      padding: 20px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      padding: 25px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     }
     h1, h2 {
       text-align: center;
-      margin-bottom: 10px;
+      margin: 0 0 15px;
     }
     label {
       display: block;
-      margin-top: 15px;
+      margin: 15px 0 5px;
       font-weight: bold;
     }
     input, select, textarea {
       width: 100%;
       padding: 10px;
-      margin-top: 6px;
       border: 1px solid #ccc;
-      border-radius: 8px;
+      border-radius: 6px;
       font-size: 1rem;
     }
+    textarea {
+      resize: vertical;
+    }
     .radio-group {
-      display: flex;
-      flex-direction: column;
       margin-top: 10px;
-      gap: 8px;
     }
     .radio-group label {
       display: flex;
       align-items: center;
       gap: 8px;
+      margin-bottom: 8px;
       font-weight: normal;
     }
     .hidden {
@@ -63,98 +63,99 @@
     }
     button {
       width: 100%;
-      padding: 12px;
+      padding: 14px;
       margin-top: 25px;
-      font-size: 18px;
       background-color: #1976d2;
       color: white;
       border: none;
       border-radius: 8px;
+      font-size: 1rem;
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
     button:hover {
-      background-color: #145a9c;
+      background-color: #125aa1;
     }
     .success-message {
-      display: none;
       text-align: center;
       color: green;
-      font-size: 1.1rem;
       font-weight: bold;
       margin-top: 20px;
+      font-size: 1.1rem;
     }
   </style>
 </head>
 <body>
-  <div class="form-container" id="formSection">
-    <h1>אישור הגעה לאירוע הוקרה לחיילים פצועים</h1>
-    <h2>בתאריך 14 במאי</h2>
-    <form id="honorForm">
-      <label>שם פרטי *</label>
-      <input name="שם פרטי" required>
+  <div class="wrapper">
+    <div class="form-container" id="formSection">
+      <h1>אישור הגעה לאירוע הוקרה לחיילים פצועים</h1>
+      <h2>בתאריך 14 במאי</h2>
+      <form id="honorForm">
+        <label>שם פרטי *</label>
+        <input name="שם פרטי" required>
 
-      <label>שם משפחה *</label>
-      <input name="שם משפחה" required>
+        <label>שם משפחה *</label>
+        <input name="שם משפחה" required>
 
-      <label>טלפון *</label>
-      <input name="טלפון" required>
+        <label>טלפון *</label>
+        <input name="טלפון" required>
 
-      <label>ת.ז *</label>
-      <input name="ת.ז" required>
+        <label>ת.ז *</label>
+        <input name="ת.ז" required>
 
-      <label>מחלקת שיקום *</label>
-      <select name="מחלקת שיקום" required onchange="handleDeptChange(this)">
-        <option value="">בחר</option>
-        <option>שיקום תל השומר</option>
-        <option>שיקום חוזרים לחיים תל השומר</option>
-        <option>שיקום יום תל השומר</option>
-        <option>בית לווינשטיין</option>
-        <option>שיקום יום בית לווינשטיין</option>
-        <option>איכילוב</option>
-        <option>שיקום יום איכילוב</option>
-        <option>שיקום בלינסון</option>
-        <option>אחר</option>
-      </select>
-      <input id="other-dept" name="שיקום אחר" class="hidden" placeholder="הזן את שם מחלקת השיקום">
+        <label>מחלקת שיקום *</label>
+        <select name="מחלקת שיקום" required onchange="handleDeptChange(this)">
+          <option value="">בחר</option>
+          <option>שיקום תל השומר</option>
+          <option>שיקום חוזרים לחיים תל השומר</option>
+          <option>שיקום יום תל השומר</option>
+          <option>בית לווינשטיין</option>
+          <option>שיקום יום בית לווינשטיין</option>
+          <option>איכילוב</option>
+          <option>שיקום יום איכילוב</option>
+          <option>שיקום בלינסון</option>
+          <option>אחר</option>
+        </select>
+        <input id="other-dept" name="שיקום אחר" class="hidden" placeholder="הזן את שם מחלקת השיקום">
 
-      <label>היכן הנך משרת / שרתת *</label>
-      <input name="מקום שירות" required>
+        <label>היכן הנך משרת / שרתת *</label>
+        <input name="מקום שירות" required>
 
-      <label>נגישות *</label>
-      <div class="radio-group">
-        <label><input type="radio" name="נגישות" value="מתהלך" required onclick="toggleEscort(false)"> מתהלך</label>
-        <label><input type="radio" name="נגישות" value="קביים" onclick="toggleEscort(true)"> קביים</label>
-        <label><input type="radio" name="נגישות" value="כיסא גלגלים" onclick="toggleEscort(true)"> כסא גלגלים</label>
-      </div>
-
-      <div id="escort-section" class="hidden">
-        <label>האם יש צורך במלווה?</label>
+        <label>נגישות *</label>
         <div class="radio-group">
-          <label><input type="radio" name="צורך במלווה" value="כן" onclick="showEscortDetails(true)"> כן</label>
-          <label><input type="radio" name="צורך במלווה" value="לא" onclick="showEscortDetails(false)"> לא</label>
+          <label><input type="radio" name="נגישות" value="מתהלך" required onclick="toggleEscort(false)"> מתהלך</label>
+          <label><input type="radio" name="נגישות" value="קביים" onclick="toggleEscort(true)"> קביים</label>
+          <label><input type="radio" name="נגישות" value="כיסא גלגלים" onclick="toggleEscort(true)"> כסא גלגלים</label>
         </div>
-        <div id="escort-details" class="hidden">
-          <label>שם מלווה</label>
-          <input name="פרטי מלווה">
 
-          <label>טלפון מלווה</label>
-          <input name="טלפון מלווה">
+        <div id="escort-section" class="hidden">
+          <label>האם יש צורך במלווה?</label>
+          <div class="radio-group">
+            <label><input type="radio" name="צורך במלווה" value="כן" onclick="showEscortDetails(true)"> כן</label>
+            <label><input type="radio" name="צורך במלווה" value="לא" onclick="showEscortDetails(false)"> לא</label>
+          </div>
+          <div id="escort-details" class="hidden">
+            <label>שם מלווה</label>
+            <input name="פרטי מלווה">
+
+            <label>טלפון מלווה</label>
+            <input name="טלפון מלווה">
+          </div>
         </div>
-      </div>
 
-      <label>בקשה מיוחדת</label>
-      <textarea name="בקשה מיוחדת"></textarea>
+        <label>בקשה מיוחדת</label>
+        <textarea name="בקשה מיוחדת"></textarea>
 
-      <label>האם יש צורך בהסעה? *</label>
-      <div class="radio-group">
-        <label><input type="radio" name="הסעה" value="כן" required> כן</label>
-        <label><input type="radio" name="הסעה" value="לא"> לא</label>
-      </div>
+        <label>האם יש צורך בהסעה? *</label>
+        <div class="radio-group">
+          <label><input type="radio" name="הסעה" value="כן" required> כן</label>
+          <label><input type="radio" name="הסעה" value="לא"> לא</label>
+        </div>
 
-      <button type="submit">שלח</button>
-      <div class="success-message" id="successMessage">הטופס נשלח בהצלחה! תודה רבה 🌟</div>
-    </form>
+        <button type="submit">שלח</button>
+        <div class="success-message" id="successMessage">הטופס נשלח בהצלחה! תודה רבה 🌟</div>
+      </form>
+    </div>
   </div>
 
   <script>
