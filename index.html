@@ -45,6 +45,13 @@
     .hidden {
       display: none;
     }
+    .success-message {
+      display: none;
+      text-align: center;
+      color: green;
+      font-weight: bold;
+      margin-top: 15px;
+    }
     button {
       margin-top: 20px;
       width: 100%;
@@ -54,6 +61,7 @@
       border: none;
       border-radius: 5px;
       font-size: 16px;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -61,8 +69,7 @@
   <div class="form-container">
     <h1>אישור הגעה לאירוע הוקרה לחיילים פצועים</h1>
     <h2>בתאריך 14 במאי</h2>
-    <form action="https://docs.google.com/forms/d/e/1FAIpQLSeWTr_SuUb6PyCBEaYn9sxlqlWaX52w7-8BxbFk_jhqo2CZJw/formResponse" method="POST" target="_blank">
-
+    <form id="honorForm">
       <label>שם פרטי *</label>
       <input name="entry.558294014" required>
 
@@ -126,10 +133,26 @@
       </div>
 
       <button type="submit">שלח</button>
+      <div class="success-message" id="successMessage">הטופס נשלח בהצלחה! תודה רבה 🌟</div>
     </form>
   </div>
 
   <script>
+    const form = document.getElementById('honorForm');
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const data = new FormData(form);
+
+      fetch('https://docs.google.com/forms/d/e/1FAIpQLSeWTr_SuUb6PyCBEaYn9sxlqlWaX52w7-8BxbFk_jhqo2CZJw/formResponse', {
+        method: 'POST',
+        mode: 'no-cors',
+        body: data
+      }).then(() => {
+        form.reset();
+        document.getElementById('successMessage').style.display = 'block';
+      });
+    });
+
     function handleDeptChange(select) {
       const otherInput = document.getElementById('other-dept');
       if (select.value === 'אחר') {
