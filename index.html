@@ -3,47 +3,49 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta property="og:image" content="background.jpg">
+  <meta property="og:image" content="https://raw.githubusercontent.com/Aviver100/14May/main/background.jpg">
   <meta property="og:title" content="אישור הגעה לאירוע הוקרה לחיילים פצועים בתאריך 14 במאי">
   <title>אישור הגעה לאירוע הוקרה</title>
   <style>
     body {
       margin: 0;
-      font-family: sans-serif;
-      background: url('background.jpg') no-repeat center center fixed;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: url('https://raw.githubusercontent.com/Aviver100/14May/main/background.jpg') no-repeat center center fixed;
       background-size: cover;
     }
     .form-container {
       background: rgba(255, 255, 255, 0.95);
       max-width: 600px;
       margin: 5vh auto;
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      padding: 25px;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
     }
     h1, h2 {
       text-align: center;
+      margin-bottom: 10px;
     }
     label {
       display: block;
-      margin-top: 10px;
+      margin-top: 12px;
       font-weight: bold;
     }
     input, select, textarea {
       width: 100%;
-      padding: 8px;
-      margin-top: 5px;
-      border-radius: 5px;
+      padding: 10px;
+      margin-top: 6px;
+      border-radius: 8px;
       border: 1px solid #ccc;
+      font-size: 1em;
     }
     .radio-group {
       display: flex;
-      gap: 15px;
+      flex-direction: column;
+      gap: 8px;
       margin-top: 5px;
-      flex-wrap: wrap;
     }
     .hidden {
-      display: none;
+      display: none !important;
     }
     .success-message {
       display: none;
@@ -53,20 +55,25 @@
       margin-top: 15px;
     }
     button {
-      margin-top: 20px;
+      margin-top: 25px;
       width: 100%;
-      padding: 10px;
+      padding: 12px;
       background-color: #1976d2;
       color: white;
       border: none;
-      border-radius: 5px;
-      font-size: 16px;
+      border-radius: 8px;
+      font-size: 18px;
       cursor: pointer;
+    }
+    @media (max-width: 600px) {
+      .form-container {
+        padding: 15px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="form-container">
+  <div class="form-container" id="formSection">
     <h1>אישור הגעה לאירוע הוקרה לחיילים פצועים</h1>
     <h2>בתאריך 14 במאי</h2>
     <form id="honorForm">
@@ -115,7 +122,8 @@
         </div>
         <div id="escort-details" class="hidden">
           <label>שם מלווה</label>
-          <input name="שם מלווה">
+          <input name="פרטי מלווה">
+
           <label>טלפון מלווה</label>
           <input name="טלפון מלווה">
         </div>
@@ -147,7 +155,8 @@
         body: data
       }).then(() => {
         form.reset();
-        document.getElementById('successMessage').style.display = 'block';
+        document.getElementById('formSection').style.display = 'none';
+        alert('הרשמתך התקבלה בהצלחה! מחכים לך 🤍');
       });
     });
 
@@ -163,7 +172,9 @@
     }
 
     function toggleEscort(show) {
-      document.getElementById('escort-section').classList.toggle('hidden', !show);
+      const escortSection = document.getElementById('escort-section');
+      escortSection.classList.toggle('hidden', !show);
+      if (!show) showEscortDetails(false);
     }
 
     function showEscortDetails(show) {
