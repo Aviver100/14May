@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:image" content="background.jpg">
+  <meta property="og:title" content="אישור הגעה לאירוע הוקרה לחיילים פצועים בתאריך 14 במאי">
+  <title>אישור הגעה לאירוע הוקרה</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: url('background.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+    .form-container {
+      background: rgba(255, 255, 255, 0.95);
+      max-width: 600px;
+      margin: 5vh auto;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+    h1, h2 {
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .radio-group {
+      display: flex;
+      gap: 15px;
+      margin-top: 5px;
+      flex-wrap: wrap;
+    }
+    .hidden {
+      display: none;
+    }
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 10px;
+      background-color: #1976d2;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h1>אישור הגעה לאירוע הוקרה לחיילים פצועים</h1>
+    <h2>בתאריך 14 במאי</h2>
+    <form action="https://docs.google.com/forms/d/e/1FAIpQLSeWTr_SuUb6PyCBEaYn9sxlqlWaX52w7-8BxbFk_jhqo2CZJw/formResponse" method="POST" target="_blank">
+
+      <label>שם פרטי *</label>
+      <input name="entry.558294014" required>
+
+      <label>שם משפחה *</label>
+      <input name="entry.1132247937" required>
+
+      <label>מספר טלפון *</label>
+      <input name="entry.1384147649" required>
+
+      <label>מספר תעודת זהות *</label>
+      <input name="entry.2120202338" required>
+
+      <label>מחלקת שיקום *</label>
+      <select name="entry.1995275019" required onchange="handleDeptChange(this)">
+        <option value="">בחר</option>
+        <option>שיקום תל השומר</option>
+        <option>שיקום חוזרים לחיים תל השומר</option>
+        <option>שיקום יום תל השומר</option>
+        <option>בית לווינשטיין</option>
+        <option>שיקום יום בית לווינשטיין</option>
+        <option>איכילוב</option>
+        <option>שיקום יום איכילוב</option>
+        <option>שיקום בלינסון</option>
+        <option>אחר</option>
+      </select>
+      <input id="other-dept" name="entry.1236744876" class="hidden" placeholder="הזן את שם מחלקת השיקום">
+
+      <label>היכן הנך משרת / שרתת *</label>
+      <input name="entry.409865880" required>
+
+      <label>נגישות *</label>
+      <div class="radio-group">
+        <label><input type="radio" name="entry.383191228" value="מתהלך" required onclick="toggleEscort(false)"> מתהלך</label>
+        <label><input type="radio" name="entry.383191228" value="קביים" onclick="toggleEscort(true)"> קביים</label>
+        <label><input type="radio" name="entry.383191228" value="כיסא גלגלים" onclick="toggleEscort(true)"> כסא גלגלים</label>
+      </div>
+
+      <div id="escort-section" class="hidden">
+        <label>האם יש צורך במלווה?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="entry.882844125" value="כן" onclick="showEscortDetails(true)"> כן</label>
+          <label><input type="radio" name="entry.882844125" value="לא" onclick="showEscortDetails(false)"> לא</label>
+        </div>
+        <div id="escort-details" class="hidden">
+          <label>שם פרטי של מלווה</label>
+          <input name="entry.2030174726">
+          <label>שם משפחה של מלווה</label>
+          <input name="entry.1891062355">
+          <label>טלפון של מלווה</label>
+          <input name="entry.1359961011">
+        </div>
+      </div>
+
+      <label>בקשה מיוחדת</label>
+      <textarea name="entry.1661258433"></textarea>
+
+      <label>האם יש צורך בהסעה? *</label>
+      <div class="radio-group">
+        <label><input type="radio" name="entry.1901230372" value="כן" required> כן</label>
+        <label><input type="radio" name="entry.1901230372" value="לא"> לא</label>
+      </div>
+
+      <button type="submit">שלח</button>
+    </form>
+  </div>
+
+  <script>
+    function handleDeptChange(select) {
+      const otherInput = document.getElementById('other-dept');
+      if (select.value === 'אחר') {
+        otherInput.classList.remove('hidden');
+        otherInput.required = true;
+      } else {
+        otherInput.classList.add('hidden');
+        otherInput.required = false;
+      }
+    }
+
+    function toggleEscort(show) {
+      document.getElementById('escort-section').classList.toggle('hidden', !show);
+    }
+
+    function showEscortDetails(show) {
+      document.getElementById('escort-details').classList.toggle('hidden', !show);
+    }
+  </script>
+</body>
+</html>
