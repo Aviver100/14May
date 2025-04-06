@@ -8,106 +8,116 @@
   <meta property="og:description" content="הזמנה לאירוע הוקרה לחיילים פצועים בתאריך 14 במאי">
   <title>אישור הגעה לאירוע הוקרה</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
-    html, body {
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f2f2f2;
       margin: 0;
       padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f0f0f0;
+      direction: rtl;
     }
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: url('https://raw.githubusercontent.com/Aviver100/14May/main/background.jpg') no-repeat center center fixed;
-      background-size: cover;
-      filter: blur(8px) brightness(0.7);
-      z-index: -1;
-    }
+
     .wrapper {
-      padding: 20px;
-      max-width: 500px;
-      margin: auto;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 30px 15px;
     }
+
     .form-container {
-      background: #ffffffee;
-      border-radius: 16px;
+      background-color: #fff;
       padding: 25px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      border-radius: 12px;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     }
+
     h1, h2 {
       text-align: center;
-      margin: 0 0 15px;
+      color: #333;
     }
+
     label {
       display: block;
-      margin: 15px 0 5px;
-      font-weight: bold;
+      margin-top: 15px;
+      font-weight: 500;
     }
+
     input, select, textarea {
       width: 100%;
       padding: 10px;
       border: 1px solid #ccc;
       border-radius: 8px;
-      font-size: 1rem;
-      background-color: #fff;
+      margin-top: 5px;
+      box-sizing: border-box;
+      font-size: 1em;
     }
-    textarea {
-      resize: vertical;
-    }
+
     .radio-group {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
       margin-top: 10px;
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
     }
+
     .radio-group label {
       display: flex;
-      justify-content: flex-end;
       align-items: center;
-      font-size: 1rem;
-      gap: 10px;
+      gap: 5px;
+      font-weight: normal;
     }
-    .radio-group input[type="radio"] {
-      margin: 0;
-      accent-color: #1976d2;
-    }
+
     .hidden {
-      display: none !important;
+      display: none;
     }
+
     button {
-      width: 100%;
-      padding: 14px;
       margin-top: 25px;
-      background-color: #1976d2;
+      background-color: #007bff;
       color: white;
+      padding: 12px;
       border: none;
-      border-radius: 10px;
-      font-size: 1rem;
-      font-weight: bold;
+      border-radius: 8px;
       cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.2s ease;
+      width: 100%;
+      font-size: 1.1em;
     }
+
     button:hover {
-      background-color: #125aa1;
-      transform: scale(1.02);
+      background-color: #0056b3;
     }
-    .success-message {
+
+    /* Popup styles */
+    .popup-overlay {
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .popup-content {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      max-width: 400px;
+      width: 90%;
       text-align: center;
-      color: green;
-      font-weight: bold;
-      margin-top: 20px;
-      font-size: 1.1rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
-    @media (max-width: 480px) {
-      .form-container {
-        padding: 20px 15px;
-      }
+
+    .popup-content h3 {
+      margin-bottom: 15px;
+    }
+
+    .popup-content button {
+      background-color: #28a745;
+      margin-top: 15px;
     }
   </style>
 </head>
@@ -170,7 +180,7 @@
       </div>
 
       <label>בקשה מיוחדת</label>
-      <textarea name="בקשה מיוחדת"></textarea>
+      <textarea name="בקשה מיוחדת" rows="3"></textarea>
 
       <label>האם יש צורך בהסעה? *</label>
       <div class="radio-group">
@@ -179,8 +189,16 @@
       </div>
 
       <button type="submit">שלח</button>
-      <div class="success-message" id="successMessage">הטופס נשלח בהצלחה! תודה רבה 🌟</div>
     </form>
+  </div>
+</div>
+
+<!-- Success popup -->
+<div class="popup-overlay" id="popupOverlay">
+  <div class="popup-content">
+    <h3>הרשמתך התקבלה בהצלחה! 🤍</h3>
+    <p>מחכים לך באירוע 🙌</p>
+    <button onclick="closePopup()">סגור</button>
   </div>
 </div>
 
@@ -197,7 +215,7 @@
     }).then(() => {
       form.reset();
       document.getElementById('formSection').style.display = 'none';
-      alert('הרשמתך התקבלה בהצלחה! מחכים לך 🤍');
+      document.getElementById('popupOverlay').style.display = 'flex';
     });
   });
 
@@ -219,6 +237,10 @@
 
   function showEscortDetails(show) {
     document.getElementById('escort-details').classList.toggle('hidden', !show);
+  }
+
+  function closePopup() {
+    document.getElementById('popupOverlay').style.display = 'none';
   }
 </script>
 </body>
