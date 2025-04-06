@@ -9,136 +9,87 @@
   <title>אישור הגעה לאירוע הוקרה</title>
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f2f2f2;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
       margin: 0;
       padding: 0;
-      direction: rtl;
+      text-align: right;
     }
-
     .wrapper {
       display: flex;
       justify-content: center;
-      align-items: flex-start;
-      padding: 30px 15px;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
     }
-
     .form-container {
-      background-color: #fff;
-      padding: 25px;
-      border-radius: 12px;
-      max-width: 500px;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       width: 100%;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      max-width: 400px;
     }
-
     h1, h2 {
       text-align: center;
       color: #333;
     }
-
     label {
+      font-weight: bold;
       display: block;
-      margin-top: 15px;
-      font-weight: 500;
+      margin-top: 10px;
     }
-
     input, select, textarea {
       width: 100%;
       padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
       margin-top: 5px;
-      box-sizing: border-box;
-      font-size: 1em;
+      border: 1px solid #ccc;
+      border-radius: 5px;
     }
-
     .radio-group {
-      margin-top: 10px;
       display: flex;
-      gap: 15px;
-      flex-wrap: wrap;
+      justify-content: space-between;
     }
-
     .radio-group label {
-      display: flex;
-      align-items: center;
-      gap: 5px;
       font-weight: normal;
     }
-
     .hidden {
       display: none;
     }
-
     button {
-      margin-top: 25px;
-      background-color: #007bff;
-      color: white;
-      padding: 12px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
       width: 100%;
-      font-size: 1.1em;
-    }
-
-    button:hover {
-      background-color: #0056b3;
-    }
-
-    /* Popup styles */
-    .popup-overlay {
-      position: fixed;
-      top: 0;
-      right: 0;
-      left: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.5);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
-
-    .popup-content {
-      background: white;
-      padding: 25px;
-      border-radius: 12px;
-      max-width: 400px;
-      width: 90%;
-      text-align: center;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    }
-
-    .popup-content h3 {
-      margin-bottom: 15px;
-    }
-
-    .popup-content button {
-      background-color: #28a745;
+      background: #007BFF;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
       margin-top: 15px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background: #0056b3;
     }
   </style>
 </head>
 <body>
 <div class="wrapper">
   <div class="form-container" id="formSection">
-    <h1>אישור הגעה לאירוע הוקרה לחיילים פצועים</h1>
+    <h1>אישור הגעה לאירוע הוקרה</h1>
     <h2>בתאריך 14 במאי</h2>
     <form id="honorForm">
       <label>שם פרטי *</label>
       <input name="שם פרטי" required>
-
+      
       <label>שם משפחה *</label>
       <input name="שם משפחה" required>
-
+      
       <label>טלפון *</label>
       <input name="טלפון" required>
-
+      
       <label>ת.ז *</label>
       <input name="ת.ז" required>
-
+      
       <label>מחלקת שיקום *</label>
       <select name="מחלקת שיקום" required onchange="handleDeptChange(this)">
         <option value="">בחר</option>
@@ -153,17 +104,17 @@
         <option>אחר</option>
       </select>
       <input id="other-dept" name="שיקום אחר" class="hidden" placeholder="הזן את שם מחלקת השיקום">
-
+      
       <label>היכן הנך משרת / שרתת *</label>
       <input name="מקום שירות" required>
-
+      
       <label>נגישות *</label>
       <div class="radio-group">
         <label><input type="radio" name="נגישות" value="מתהלך" required onclick="toggleEscort(false)">מתהלך</label>
         <label><input type="radio" name="נגישות" value="קביים" onclick="toggleEscort(true)">קביים</label>
         <label><input type="radio" name="נגישות" value="כיסא גלגלים" onclick="toggleEscort(true)">כיסא גלגלים</label>
       </div>
-
+      
       <div id="escort-section" class="hidden">
         <label>האם יש צורך במלווה?</label>
         <div class="radio-group">
@@ -173,75 +124,39 @@
         <div id="escort-details" class="hidden">
           <label>שם מלווה</label>
           <input name="פרטי מלווה">
-
+          
           <label>טלפון מלווה</label>
           <input name="טלפון מלווה">
         </div>
       </div>
-
+      
       <label>בקשה מיוחדת</label>
-      <textarea name="בקשה מיוחדת" rows="3"></textarea>
-
+      <textarea name="בקשה מיוחדת"></textarea>
+      
       <label>האם יש צורך בהסעה? *</label>
       <div class="radio-group">
         <label><input type="radio" name="הסעה" value="כן" required>כן</label>
         <label><input type="radio" name="הסעה" value="לא">לא</label>
       </div>
-
+      
       <button type="submit">שלח</button>
     </form>
   </div>
 </div>
-
-<!-- Success popup -->
-<div class="popup-overlay" id="popupOverlay">
-  <div class="popup-content">
-    <h3>הרשמתך התקבלה בהצלחה! 🤍</h3>
-    <p>מחכים לך באירוע 🙌</p>
-    <button onclick="closePopup()">סגור</button>
-  </div>
-</div>
-
 <script>
   const form = document.getElementById('honorForm');
   form.addEventListener('submit', function(e) {
     e.preventDefault();
     const data = new FormData(form);
-
-    fetch('https://script.google.com/macros/s/AKfycbzf7PFkUS_ilM-ahGrLugR3fhi39cFQSacvLyxKgoTXHsZY0AHvlkuvH3QglWhnwL65/exec', {
+    fetch('https://script.google.com/macros/s/YOUR_SCRIPT_URL/exec', {
       method: 'POST',
       mode: 'no-cors',
       body: data
     }).then(() => {
       form.reset();
-      document.getElementById('formSection').style.display = 'none';
-      document.getElementById('popupOverlay').style.display = 'flex';
+      alert('הרשמתך התקבלה בהצלחה! מחכים לך 🤍');
     });
   });
-
-  function handleDeptChange(select) {
-    const otherInput = document.getElementById('other-dept');
-    if (select.value === 'אחר') {
-      otherInput.classList.remove('hidden');
-      otherInput.required = true;
-    } else {
-      otherInput.classList.add('hidden');
-      otherInput.required = false;
-    }
-  }
-
-  function toggleEscort(show) {
-    document.getElementById('escort-section').classList.toggle('hidden', !show);
-    if (!show) showEscortDetails(false);
-  }
-
-  function showEscortDetails(show) {
-    document.getElementById('escort-details').classList.toggle('hidden', !show);
-  }
-
-  function closePopup() {
-    document.getElementById('popupOverlay').style.display = 'none';
-  }
 </script>
 </body>
 </html>
