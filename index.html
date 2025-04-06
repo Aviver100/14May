@@ -49,14 +49,21 @@
       resize: vertical;
     }
     .radio-group {
+      display: flex;
+      flex-direction: column;
       margin-top: 10px;
+      gap: 10px;
     }
     .radio-group label {
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 8px;
-      margin-bottom: 8px;
+      direction: rtl;
       font-weight: normal;
+    }
+    .radio-group input[type="radio"] {
+      margin-right: 0;
+      margin-left: auto;
     }
     .hidden {
       display: none !important;
@@ -123,16 +130,16 @@
 
         <label>נגישות *</label>
         <div class="radio-group">
-          <label><input type="radio" name="נגישות" value="מתהלך" required onclick="toggleEscort(false)"> מתהלך</label>
-          <label><input type="radio" name="נגישות" value="קביים" onclick="toggleEscort(true)"> קביים</label>
-          <label><input type="radio" name="נגישות" value="כיסא גלגלים" onclick="toggleEscort(true)"> כסא גלגלים</label>
+          <label>מתהלך <input type="radio" name="נגישות" value="מתהלך" required onclick="toggleEscort(false)"></label>
+          <label>קביים <input type="radio" name="נגישות" value="קביים" onclick="toggleEscort(true)"></label>
+          <label>כיסא גלגלים <input type="radio" name="נגישות" value="כיסא גלגלים" onclick="toggleEscort(true)"></label>
         </div>
 
         <div id="escort-section" class="hidden">
           <label>האם יש צורך במלווה?</label>
           <div class="radio-group">
-            <label><input type="radio" name="צורך במלווה" value="כן" onclick="showEscortDetails(true)"> כן</label>
-            <label><input type="radio" name="צורך במלווה" value="לא" onclick="showEscortDetails(false)"> לא</label>
+            <label>כן <input type="radio" name="צורך במלווה" value="כן" onclick="showEscortDetails(true)"></label>
+            <label>לא <input type="radio" name="צורך במלווה" value="לא" onclick="showEscortDetails(false)"></label>
           </div>
           <div id="escort-details" class="hidden">
             <label>שם מלווה</label>
@@ -148,8 +155,8 @@
 
         <label>האם יש צורך בהסעה? *</label>
         <div class="radio-group">
-          <label><input type="radio" name="הסעה" value="כן" required> כן</label>
-          <label><input type="radio" name="הסעה" value="לא"> לא</label>
+          <label>כן <input type="radio" name="הסעה" value="כן" required></label>
+          <label>לא <input type="radio" name="הסעה" value="לא"></label>
         </div>
 
         <button type="submit">שלח</button>
