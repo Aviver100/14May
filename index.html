@@ -168,6 +168,7 @@
     <h1>אישור הגעה לאירוע הוקרה לחיילים פצועים</h1>
     <h2>בתאריך 14 במאי</h2>
     <form id="honorForm">
+      <!-- שדות רגילים -->
       <label>שם פרטי *</label>
       <input name="שם פרטי" required>
 
@@ -175,7 +176,7 @@
       <input name="שם משפחה" required>
 
       <label>טלפון *</label>
-      <input name="טלפון" type="tel" required>
+      <input name="טלפון" required>
 
       <label>ת.ז *</label>
       <input name="ת.ז" required>
@@ -198,6 +199,7 @@
       <label>היכן הנך משרת / שרתת *</label>
       <input name="מקום שירות" required>
 
+      <!-- נגישות -->
       <label>נגישות *</label>
       <div class="radio-group">
         <label><input type="radio" name="נגישות" value="מתהלך" required onclick="toggleEscort(false)">מתהלך</label>
@@ -205,6 +207,7 @@
         <label><input type="radio" name="נגישות" value="כיסא גלגלים" onclick="toggleEscort(true)">כיסא גלגלים</label>
       </div>
 
+      <!-- מלווה -->
       <div id="escort-section" class="hidden">
         <label>האם יש צורך במלווה?</label>
         <div class="radio-group">
@@ -216,7 +219,7 @@
           <input name="פרטי מלווה">
 
           <label>טלפון מלווה</label>
-          <input name="טלפון מלווה" type="tel">
+          <input name="טלפון מלווה">
         </div>
       </div>
 
@@ -230,6 +233,7 @@
       </div>
 
       <button type="submit">שלח</button>
+      <div class="success-message" id="successMessage">הטופס נשלח בהצלחה! תודה רבה 🌟</div>
     </form>
   </div>
 </div>
@@ -240,6 +244,9 @@
     e.preventDefault();
     const data = new FormData(form);
 
+    // debug לבדיקה
+    // for (let pair of data.entries()) console.log(pair[0]+ ': ' + pair[1]);
+
     fetch('https://script.google.com/macros/s/AKfycbzf7PFkUS_ilM-ahGrLugR3fhi39cFQSacvLyxKgoTXHsZY0AHvlkuvH3QglWhnwL65/exec', {
       method: 'POST',
       mode: 'no-cors',
@@ -248,9 +255,6 @@
       form.reset();
       document.getElementById('formSection').style.display = 'none';
       alert('הרשמתך התקבלה בהצלחה! מחכים לך 🤍');
-    }).catch(error => {
-      console.error('Error:', error);
-      alert('אירעה שגיאה בשליחת הטופס. אנא נסה שוב.');
     });
   });
 
@@ -269,15 +273,12 @@
   function toggleEscort(show) {
     const escortSection = document.getElementById('escort-section');
     escortSection.classList.toggle('hidden', !show);
-    
     const escortRadios = escortSection.querySelectorAll('input[type="radio"]');
     escortRadios.forEach(radio => {
       radio.required = show;
     });
-    
     if (!show) {
       showEscortDetails(false);
-      // Clear escort values when hiding section
       const escortInputs = escortSection.querySelectorAll('input');
       escortInputs.forEach(input => {
         input.value = '';
@@ -288,7 +289,6 @@
   function showEscortDetails(show) {
     const detailsSection = document.getElementById('escort-details');
     detailsSection.classList.toggle('hidden', !show);
-    
     const inputFields = detailsSection.querySelectorAll('input');
     inputFields.forEach(input => {
       input.required = show;
@@ -298,3 +298,4 @@
 </script>
 </body>
 </html>
+
