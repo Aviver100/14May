@@ -7,7 +7,7 @@
   <meta property="og:title" content="הזמנה לאירוע הוקרה לחיילים פצועים בתאריך 14 במאי">
   <meta property="og:description" content="הזמנה לאירוע הוקרה לחיילים פצועים בתאריך 14 במאי">
   <title>אישור הגעה לאירוע הוקרה</title>
-   <style>
+  <style>
     * {
       box-sizing: border-box;
     }
@@ -98,6 +98,114 @@
   </style>
 </head>
 <body>
-<!-- התוכן לא משתנה -->
+<div class="wrapper">
+  <div class="form-container" id="formSection">
+    <h1>אישור הגעה לאירוע הוקרה לחיילים פצועים</h1>
+    <h2>בתאריך 14 במאי</h2>
+    <form id="honorForm">
+      <label>שם פרטי *</label>
+      <input name="שם פרטי" required>
+
+      <label>שם משפחה *</label>
+      <input name="שם משפחה" required>
+
+      <label>טלפון *</label>
+      <input name="טלפון" required>
+
+      <label>ת.ז *</label>
+      <input name="ת.ז" required>
+
+      <label>מחלקת שיקום *</label>
+      <select name="מחלקת שיקום" required onchange="handleDeptChange(this)">
+        <option value="">בחר</option>
+        <option>שיקום תל השומר</option>
+        <option>שיקום חוזרים לחיים תל השומר</option>
+        <option>שיקום יום תל השומר</option>
+        <option>בית לווינשטיין</option>
+        <option>שיקום יום בית לווינשטיין</option>
+        <option>איכילוב</option>
+        <option>שיקום יום איכילוב</option>
+        <option>שיקום בלינסון</option>
+        <option>אחר</option>
+      </select>
+      <input id="other-dept" name="שיקום אחר" class="hidden" placeholder="הזן את שם מחלקת השיקום">
+
+      <label>היכן הנך משרת / שרתת *</label>
+      <input name="מקום שירות" required>
+
+      <label>נגישות *</label>
+      <div class="radio-group">
+        <label><input type="radio" name="נגישות" value="מתהלך" required onclick="toggleEscort(false)">מתהלך</label>
+        <label><input type="radio" name="נגישות" value="קביים" onclick="toggleEscort(true)">קביים</label>
+        <label><input type="radio" name="נגישות" value="כיסא גלגלים" onclick="toggleEscort(true)">כיסא גלגלים</label>
+      </div>
+
+      <div id="escort-section" class="hidden">
+        <label>האם יש צורך במלווה?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="צורך במלווה" value="כן" onclick="showEscortDetails(true)">כן</label>
+          <label><input type="radio" name="צורך במלווה" value="לא" onclick="showEscortDetails(false)">לא</label>
+        </div>
+        <div id="escort-details" class="hidden">
+          <label>שם מלווה</label>
+          <input name="פרטי מלווה">
+
+          <label>טלפון מלווה</label>
+          <input name="טלפון מלווה">
+        </div>
+      </div>
+
+      <label>בקשה מיוחדת</label>
+      <textarea name="בקשה מיוחדת"></textarea>
+
+      <label>האם יש צורך בהסעה? *</label>
+      <div class="radio-group">
+        <label><input type="radio" name="הסעה" value="כן" required>כן</label>
+        <label><input type="radio" name="הסעה" value="לא">לא</label>
+      </div>
+
+      <button type="submit">שלח</button>
+      <div class="success-message" id="successMessage">הטופס נשלח בהצלחה! תודה רבה 🌟</div>
+    </form>
+  </div>
+</div>
+
+<script>
+  const form = document.getElementById('honorForm');
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const data = new FormData(form);
+
+    fetch('https://script.google.com/macros/s/AKfycbzf7PFkUS_ilM-ahGrLugR3fhi39cFQSacvLyxKgoTXHsZY0AHvlkuvH3QglWhnwL65/exec', {
+      method: 'POST',
+      mode: 'no-cors',
+      body: data
+    }).then(() => {
+      form.reset();
+      document.getElementById('formSection').style.display = 'none';
+      alert('הרשמתך התקבלה בהצלחה! מחכים לך 🤍');
+    });
+  });
+
+  function handleDeptChange(select) {
+    const otherInput = document.getElementById('other-dept');
+    if (select.value === 'אחר') {
+      otherInput.classList.remove('hidden');
+      otherInput.required = true;
+    } else {
+      otherInput.classList.add('hidden');
+      otherInput.required = false;
+    }
+  }
+
+  function toggleEscort(show) {
+    document.getElementById('escort-section').classList.toggle('hidden', !show);
+    if (!show) showEscortDetails(false);
+  }
+
+  function showEscortDetails(show) {
+    document.getElementById('escort-details').classList.toggle('hidden', !show);
+  }
+</script>
 </body>
 </html>
