@@ -71,19 +71,19 @@
     <h2>בתאריך 14 במאי</h2>
     <form id="honorForm">
       <label>שם פרטי *</label>
-      <input name="entry.558294014" required>
+      <input name="שם פרטי" required>
 
       <label>שם משפחה *</label>
-      <input name="entry.1132247937" required>
+      <input name="שם משפחה" required>
 
-      <label>מספר טלפון *</label>
-      <input name="entry.1384147649" required>
+      <label>טלפון *</label>
+      <input name="טלפון" required>
 
-      <label>מספר תעודת זהות *</label>
-      <input name="entry.2120202338" required>
+      <label>ת.ז *</label>
+      <input name="ת.ז" required>
 
       <label>מחלקת שיקום *</label>
-      <select name="entry.1995275019" required onchange="handleDeptChange(this)">
+      <select name="מחלקת שיקום" required onchange="handleDeptChange(this)">
         <option value="">בחר</option>
         <option>שיקום תל השומר</option>
         <option>שיקום חוזרים לחיים תל השומר</option>
@@ -95,41 +95,39 @@
         <option>שיקום בלינסון</option>
         <option>אחר</option>
       </select>
-      <input id="other-dept" name="entry.1236744876" class="hidden" placeholder="הזן את שם מחלקת השיקום">
+      <input id="other-dept" name="שיקום אחר" class="hidden" placeholder="הזן את שם מחלקת השיקום">
 
       <label>היכן הנך משרת / שרתת *</label>
-      <input name="entry.409865880" required>
+      <input name="מקום שירות" required>
 
       <label>נגישות *</label>
       <div class="radio-group">
-        <label><input type="radio" name="entry.383191228" value="מתהלך" required onclick="toggleEscort(false)"> מתהלך</label>
-        <label><input type="radio" name="entry.383191228" value="קביים" onclick="toggleEscort(true)"> קביים</label>
-        <label><input type="radio" name="entry.383191228" value="כיסא גלגלים" onclick="toggleEscort(true)"> כסא גלגלים</label>
+        <label><input type="radio" name="נגישות" value="מתהלך" required onclick="toggleEscort(false)"> מתהלך</label>
+        <label><input type="radio" name="נגישות" value="קביים" onclick="toggleEscort(true)"> קביים</label>
+        <label><input type="radio" name="נגישות" value="כיסא גלגלים" onclick="toggleEscort(true)"> כסא גלגלים</label>
       </div>
 
       <div id="escort-section" class="hidden">
         <label>האם יש צורך במלווה?</label>
         <div class="radio-group">
-          <label><input type="radio" name="entry.882844125" value="כן" onclick="showEscortDetails(true)"> כן</label>
-          <label><input type="radio" name="entry.882844125" value="לא" onclick="showEscortDetails(false)"> לא</label>
+          <label><input type="radio" name="צורך במלווה" value="כן" onclick="showEscortDetails(true)"> כן</label>
+          <label><input type="radio" name="צורך במלווה" value="לא" onclick="showEscortDetails(false)"> לא</label>
         </div>
         <div id="escort-details" class="hidden">
-          <label>שם פרטי של מלווה</label>
-          <input name="entry.2030174726">
-          <label>שם משפחה של מלווה</label>
-          <input name="entry.1891062355">
-          <label>טלפון של מלווה</label>
-          <input name="entry.1359961011">
+          <label>שם מלווה</label>
+          <input name="שם מלווה">
+          <label>טלפון מלווה</label>
+          <input name="טלפון מלווה">
         </div>
       </div>
 
       <label>בקשה מיוחדת</label>
-      <textarea name="entry.1661258433"></textarea>
+      <textarea name="בקשה מיוחדת"></textarea>
 
       <label>האם יש צורך בהסעה? *</label>
       <div class="radio-group">
-        <label><input type="radio" name="entry.1901230372" value="כן" required> כן</label>
-        <label><input type="radio" name="entry.1901230372" value="לא"> לא</label>
+        <label><input type="radio" name="הסעה" value="כן" required> כן</label>
+        <label><input type="radio" name="הסעה" value="לא"> לא</label>
       </div>
 
       <button type="submit">שלח</button>
@@ -143,7 +141,7 @@
       e.preventDefault();
       const data = new FormData(form);
 
-      fetch('https://docs.google.com/forms/d/e/1FAIpQLSeWTr_SuUb6PyCBEaYn9sxlqlWaX52w7-8BxbFk_jhqo2CZJw/formResponse', {
+      fetch('https://script.google.com/macros/s/AKfycbzf7PFkUS_ilM-ahGrLugR3fhi39cFQSacvLyxKgoTXHsZY0AHvlkuvH3QglWhnwL65/exec', {
         method: 'POST',
         mode: 'no-cors',
         body: data
