@@ -444,44 +444,35 @@
   100% { transform: rotate(360deg); }
 }
 
-/* סגנון לפופאפ הצלחה */
-.success-popup {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  z-index: 1000;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
-.success-content {
-  background-color: white;
-  padding: 30px;
-  border-radius: 15px;
+/* סגנון להודעת ההצלחה */
+.success-container {
   text-align: center;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  max-width: 90%;
-  width: 320px;
+  padding: 30px 20px;
 }
 
-.success-content p {
-  font-size: 1.2rem;
+.success-container .emoji {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.success-container h2 {
+  color: var(--primary-color);
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+}
+
+.success-container p {
+  font-size: 1.3rem;
   color: var(--dark-color);
   margin-bottom: 10px;
 }
-
-.success-content .emoji {
-  font-size: 2.5rem;
-  margin: 10px 0;
-  display: block;
-}
   
-  </style></head><body><div class="wrapper">  <div class="form-container" id="formSection"><div class="logos">  <img src="https://asel.co.il/wp-content/uploads/2020/07/azrieli.png" alt="Azrieli 1">  <img src="https://savyonim.org/wp-content/uploads/2023/10/logo-trans-300-380.png" alt="Savyonim">  <img src="https://upload.wikimedia.org/wikipedia/he/5/5f/AzrieliGroup.svg" alt="Azrieli Group"></div><h1>אישור הגעה אירוע הוקרה לפצועי צה"ל</h1>
+  </style></head><body><div class="wrapper">  <div class="form-container" id="formSection">
+  
+  <!-- תוכן הטופס -->
+  <div id="formContent">
+  <div class="logos">  <img src="https://asel.co.il/wp-content/uploads/2020/07/azrieli.png" alt="Azrieli 1">  <img src="https://savyonim.org/wp-content/uploads/2023/10/logo-trans-300-380.png" alt="Savyonim">  <img src="https://upload.wikimedia.org/wikipedia/he/5/5f/AzrieliGroup.svg" alt="Azrieli Group"></div><h1>אישור הגעה אירוע הוקרה לפצועי צה"ל</h1>
 
 <h2>14 במאי - 2025</h2>
 
@@ -620,6 +611,14 @@
   <div class="success-message" id="successMessage">הטופס נשלח בהצלחה! תודה רבה 🌟</div>
 
 </form>
+  </div>
+  
+  <!-- תוכן הודעת ההצלחה (מוסתר בהתחלה) -->
+  <div id="successContent" class="hidden success-container">
+    <span class="emoji">🤍</span>
+    <h2>הרשמתך התקבלה בהצלחה!</h2>
+    <p>מחכים לך!</p>
+  </div>
 
   </div></div>
   
@@ -628,15 +627,6 @@
   <div class="loading-content">
     <p>הרשמתך מתבצעת, אנא המתן...</p>
     <div class="loader"></div>
-  </div>
-</div>
-
-<!-- פופאפ הצלחה -->
-<div class="success-popup" id="successPopup">
-  <div class="success-content">
-    <span class="emoji">🤍</span>
-    <p>הרשמתך התקבלה בהצלחה!</p>
-    <p>מחכים לך!</p>
   </div>
 </div>
 
@@ -650,7 +640,8 @@
   
   const form = document.getElementById('honorForm');
   const loadingPopup = document.getElementById('loadingPopup');
-  const successPopup = document.getElementById('successPopup');
+  const formContent = document.getElementById('formContent');
+  const successContent = document.getElementById('successContent');
   
   form.addEventListener('submit', function(e) {
   
@@ -681,11 +672,12 @@
       
       // הסתר את פופאפ ההמתנה
       loadingPopup.style.display = 'none';
-  
-      document.getElementById('formSection').style.display = 'none';
       
-      // הצג את פופאפ ההצלחה במקום האלרט
-      successPopup.style.display = 'flex';
+      // הסתר את תוכן הטופס
+      formContent.classList.add('hidden');
+      
+      // הצג את הודעת ההצלחה
+      successContent.classList.remove('hidden');
   
     }).catch(error => {
       // במקרה של שגיאה, הסתר את פופאפ ההמתנה
